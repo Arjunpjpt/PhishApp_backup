@@ -16,26 +16,24 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BlogPostFragment.OnFragmentInteractionListener} interface
+ * {@link SetlistPost.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BlogPostFragment#newInstance} factory method to
+ * Use the {@link SetlistPost#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BlogPostFragment extends Fragment {
-
-    private String url;
+public class SetlistPost extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    String url;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public BlogPostFragment() {
+    public SetlistPost() {
         // Required empty public constructor
     }
 
@@ -45,18 +43,40 @@ public class BlogPostFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BlogPostFragment.
+     * @return A new instance of fragment SetlistPost.
      */
     // TODO: Rename and change types and number of parameters
-    public static BlogPostFragment newInstance(String param1, String param2) {
-        BlogPostFragment fragment = new BlogPostFragment();
+    public static SetlistPost newInstance(String param1, String param2) {
+        SetlistPost fragment = new SetlistPost();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (getArguments() != null) {
+        }
+        String longDate = getArguments().getString("long_date");
+        String location = getArguments().getString("location");
+        String setListData = getArguments().getString("setlistdata");
+        String setlistnotes = getArguments().getString("setlistnotes");
+         url = getArguments().getString("url");
+        TextView tv = getActivity().findViewById(R.id.txt_longdate);
+        tv.setText("Long Date: "+ longDate);
+        tv = getActivity().findViewById(R.id.txtlocation);
+        tv.setText("Location: "+location);
+        tv = getActivity().findViewById(R.id.txtsetlistdata);
+        tv.setText("Set list data: "+ Html.fromHtml(setListData));
+        tv = getActivity().findViewById(R.id.txtsetlestnotes);
+        tv.setText("Set list notes: "+ Html.fromHtml(setlistnotes));
 
+
+
+        //updateContent(uname, pwd);
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +90,8 @@ public class BlogPostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_blog_post, container, false);
-        Button btn = (Button) v.findViewById(R.id.btn_view_browser);
+        View v= inflater.inflate(R.layout.fragment_setlist_post, container, false);
+        Button btn = (Button) v.findViewById(R.id.btn_open);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +100,7 @@ public class BlogPostFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return v;
     }
 
@@ -107,23 +128,6 @@ public class BlogPostFragment extends Fragment {
         mListener = null;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (getArguments() != null) {
-        }
-        String title = getArguments().getString("Blog Title");
-        String date = getArguments().getString("Publish Date");
-        String sample = getArguments().getString("Sampling");
-        url = getArguments().getString("url");
-        TextView tv = getActivity().findViewById(R.id.txt_blogtitle);
-        tv.setText("Blog Title: "+ title);
-        tv = getActivity().findViewById(R.id.txt_publishdate);
-        tv.setText("Publish Date: "+date);
-        tv = getActivity().findViewById(R.id.txt_sampling);
-        tv.setText("Teaser: "+ Html.fromHtml(sample));
-            //updateContent(uname, pwd);
-        }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3e8d85</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#d81b60</color>
+    <color name="colorPrimaryAlpha">#000000</color>
 
     <color name="border">#000000</color>
     <color name="fill">#CCCCCC</color>

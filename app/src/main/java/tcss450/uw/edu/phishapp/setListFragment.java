@@ -10,12 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import tcss450.uw.edu.phishapp.blog.BlogGenerator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import tcss450.uw.edu.phishapp.blog.BlogPost;
-//import tcss450.uw.edu.phishapp.dummy.DummyContent;
-//import tcss450.uw.edu.phishapp.dummy.DummyContent.DummyItem;
-//import tcss450.uw.edu.phishapp.blog.BlogGenerator.
-;
+import tcss450.uw.edu.phishapp.setList.ListPost;
 
 /**
  * A fragment representing a list of Items.
@@ -23,7 +23,7 @@ import tcss450.uw.edu.phishapp.blog.BlogPost;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class RecyclerVieww extends Fragment {
+public class setListFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -31,17 +31,20 @@ public class RecyclerVieww extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
+    public static final String ARG_SET_LIST = "SetList";
+    private List<ListPost> mSetLists;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public RecyclerVieww() {
+    public setListFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static RecyclerVieww newInstance(int columnCount) {
-        RecyclerVieww fragment = new RecyclerVieww();
+    public static setListFragment newInstance(int columnCount) {
+        setListFragment fragment = new setListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -53,14 +56,16 @@ public class RecyclerVieww extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            System.out.println("----set List Fragment---arg");
+            mSetLists = new ArrayList<ListPost>(
+                    Arrays.asList((ListPost[]) getArguments().getSerializable(ARG_SET_LIST)));
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_blog_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_setlist_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -71,7 +76,7 @@ public class RecyclerVieww extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyBlogRecyclerViewAdapter(BlogGenerator.BLOGS, mListener));
+            recyclerView.setAdapter(new MysetListRecyclerViewAdapter(mSetLists, mListener));
         }
         return view;
     }
@@ -106,6 +111,6 @@ public class RecyclerVieww extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(BlogPost item);
+        void onListFragmentInteraction(ListPost item);
     }
 }

@@ -5,6 +5,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Btn_signin">SIGN IN</string>
     <string name="Btn_Register">REGISTER</string>
+    <string name="user_name">Username</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
     <string name="edit_email">Email</string>
     <string name="Edit_Password">Password</string>
     <string name="edit_re_password">Retype Password</string>
@@ -24,4 +27,39 @@
     <string name="sampling">Sampling</string>
     <string name="url">url</string>
     <string name="btn_view_browser">View in Browser</string>
+
+
+    <string name="keys_intent_jwToken"></string>
+
+    <!--<string name="keys_shared_prefs">edu.uw.tcss450.challengeapp.PREFS</string>-->
+    <string name="keys_prefs_username">username</string>
+    <string name="keys_prefs_stay_logged_in">loggedIn</string>
+    <string name="keys_fragment_login">loginFragmentTag</string>
+    <string name="keys_fragment_register">registerFragmentTag</string>
+    <string name="keys_intent_credentials">intent key for creds</string>
+    <string name="keys_intent_jwt">intent key for jwt</string>
+    <string name="keys_json_login_success">success</string>
+    <string name="keys_json_login_jwt">token</string>
+    <string name="keys_json_blogs_response">response</string>
+    <string name="keys_json_blogs_data">data</string>
+    <string name="keys_json_blogs_pubdate">pubdate</string>
+    <string name="keys_json_blogs_title">title</string>
+    <string name="keys_json_blogs_teaser">teaser</string>
+    <string name="keys_json_blogs_url">url</string>
+
+    <string name="set_Lists">Set Lists</string>
+
+    <string name="txt_longdate">Long Date</string>
+    <string name="txt_location">Location</string>
+    <string name="txt_Venue">Venue</string>
+    <string name="txt_setlistdata">Set list data</string>
+    <string name="txt_setlistnote">Set list notes</string>
+    <string name="btn_browser">Open in Browser</string>
+
+    <string name="action_logout">Logout</string>
+
+    <!--<string name="keys_shared_prefs">edu.uw.tcss450.phishapp.PREFS</string>-->
+    <!--<string name="keys_prefs_email">traffic_light_wont_let_me_through</string>-->
+    <!--<string name="keys_prefs_password">see_the_city_see_the_zoo</string>-->
+
 </resources>

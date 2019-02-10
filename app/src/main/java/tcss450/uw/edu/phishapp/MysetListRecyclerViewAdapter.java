@@ -7,22 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import tcss450.uw.edu.phishapp.BlogFragment.OnListFragmentInteractionListener;
-import tcss450.uw.edu.phishapp.blog.BlogPost;
+import tcss450.uw.edu.phishapp.setList.ListPost;
+import tcss450.uw.edu.phishapp.setListFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link BlogPost} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link tcss450.uw.edu.phishapp.setList.ListPost} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyBlogRecyclerViewAdapter extends RecyclerView.Adapter<MyBlogRecyclerViewAdapter.ViewHolder> {
+public class MysetListRecyclerViewAdapter extends RecyclerView.Adapter<MysetListRecyclerViewAdapter.ViewHolder> {
 
-    private final List<BlogPost> mValues;
+    private final List<ListPost> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyBlogRecyclerViewAdapter(List<BlogPost> items, OnListFragmentInteractionListener listener) {
+    public MysetListRecyclerViewAdapter(List<ListPost> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,16 +30,18 @@ public class MyBlogRecyclerViewAdapter extends RecyclerView.Adapter<MyBlogRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_blog, parent, false);
+                .inflate(R.layout.fragment_setlist, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = (BlogPost) mValues.get(position);
-        holder.mBlogTitle.setText(Html.fromHtml(((BlogPost) mValues.get(position)).getTitle()));
-        holder.mpublishDate.setText(Html.fromHtml(((BlogPost) mValues.get(position)).getPubDate()));
-        holder.msamplingview.setText(Html.fromHtml(((BlogPost) mValues.get(position)).getTeaser()));
+        holder.mItem = (ListPost) mValues.get(position);
+
+        holder.mLongDate.setText(Html.fromHtml(((ListPost) mValues.get(position)).getmLongDate()));
+        holder.mLocation.setText(Html.fromHtml(((ListPost) mValues.get(position)).getmLocation()));
+        holder.mVenue.setText(Html.fromHtml(((ListPost) mValues.get(position)).getmVenue()));
+
 
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +50,7 @@ public class MyBlogRecyclerViewAdapter extends RecyclerView.Adapter<MyBlogRecycl
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction( holder.mItem);
                 }
             }
         });
@@ -61,23 +63,22 @@ public class MyBlogRecyclerViewAdapter extends RecyclerView.Adapter<MyBlogRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mBlogTitle;
-        public final TextView mpublishDate;
-        public final TextView msamplingview;
-        public BlogPost mItem;
+        public final TextView mLongDate;
+        public final TextView mLocation;
+        public final TextView mVenue;
+        public ListPost mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mBlogTitle = (TextView) view.findViewById(R.id.txt_title);
-            mpublishDate = (TextView) view.findViewById(R.id.txt_publishdate);
-            msamplingview = (TextView) view.findViewById(R.id.txt_sampling);
+            mLongDate = (TextView) view.findViewById(R.id.txt_setlist_longdate);
+            mLocation = (TextView) view.findViewById(R.id.txt_setlist_location);
+            mVenue = (TextView) view.findViewById(R.id.txt_setlist_venue);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mBlogTitle.getText() + "'"+ mpublishDate.getText() + "'"
-                    + msamplingview.getText() + "'";
+            return super.toString() + " '" + mLocation.getText() + "'";
         }
     }
 }

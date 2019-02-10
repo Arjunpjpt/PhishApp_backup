@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 
+import java.io.Serializable;
+
+import tcss450.uw.edu.phishapp.blog.BlogPost;
+
 
 public class MainActivity extends AppCompatActivity implements LoginFragment.OnFragmentInteractionListener,
-        RegisterFragment.OnFragmentInteractionListener, WaitFragment.OnFragmentInteractionListener {
+        RegisterFragment.OnFragmentInteractionListener {
 
     public static final String PASSINTENT="pass";
     @Override
@@ -29,33 +33,43 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnF
 @Override
 public void onRegisterSuccess(tcss450.uw.edu.phishapp.model.Credentials credential){
     Log.d("MainActivity", "Register Success");
-//    LoginFragment loginFragment;
-//    loginFragment = new LoginFragment();
-//    Bundle args = new Bundle();
-//    args.putSerializable(getString(R.string.useremail), credential.getEmail());
-//    args.putSerializable(getString(R.string.userpassword), credential.getPassword());
-//    loginFragment.setArguments(args);
+    LoginFragment loginFragment;
+    loginFragment = new LoginFragment();
+    Bundle args = new Bundle();
+    args.putSerializable(getString(R.string.useremail), credential.getEmail());
+    args.putSerializable(getString(R.string.userpassword), credential.getPassword());
+    loginFragment.setArguments(args);
 
-    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-    intent.putExtra(PASSINTENT,  credential);
-    startActivity(intent);
+//    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//    intent.putExtra(PASSINTENT,  credential);
+//    startActivity(intent);
 
-//    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction()
-//            .replace(R.id.frame_main_container, loginFragment).addToBackStack(null);
-//    transaction.commit();
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction()
+            .replace(R.id.frame_main_container, loginFragment).addToBackStack(null);
+    transaction.commit();
 }
     @Override
-    public void onLoginSuccess(tcss450.uw.edu.phishapp.model.Credentials credential, String jwt) {
+    public void onLoginSuccess(tcss450.uw.edu.phishapp.model.Credentials credentials, String jwt) {
         Log.d("MainActivity", "Login Button");
 //        SuccessFragment successfragment;
 //        successfragment = new SuccessFragment();
 //        Bundle args = new Bundle();
 //        args.putSerializable(getString(R.string.useremail), credential.getEmail());
 //        successfragment.setArguments(args);
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        intent.putExtra(PASSINTENT,  credential);
-        System.out.println("THis is from main---- "+credential.getEmail());
-        startActivity(intent);
+//        System.out.println("------jwt --"+jwt);
+//        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//        intent.putExtra(PASSINTENT,  credentials);
+//        System.out.println("THis is from main---- "+credentials.getEmail());
+//        startActivity(intent);
+
+        Intent i = new Intent(MainActivity.this, HomeActivity.class);
+        i.putExtra(getString(R.string.keys_intent_credentials), (Serializable) credentials.getEmail());
+        i.putExtra(getString(R.string.keys_intent_jwt), jwt);
+        startActivity(i);
+        //End this Activity and remove it from the Activity back stack.
+        finish();
+
+
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction()
 //                .replace(R.id.frame_main_container, successfragment).addToBackStack(null);
 //        transaction.commit();
@@ -90,4 +104,6 @@ public void onRegisterSuccess(tcss450.uw.edu.phishapp.model.Credentials credenti
                 .remove(getSupportFragmentManager().findFragmentByTag("WAIT"))
                 .commit();
     }
+
+
 }

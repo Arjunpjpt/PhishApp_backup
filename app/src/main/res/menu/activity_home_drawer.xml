@@ -17,6 +17,10 @@
                 android:id="@+id/nav_recyclerView"
                 android:icon="@drawable/ic_recycle"
                 android:title="Blog Posts" />
+            <item
+                android:id="@+id/nav_set_list"
+                android:icon="@drawable/ic_set_list"
+                android:title="Set Lists" />
         </menu>
     </item>
 

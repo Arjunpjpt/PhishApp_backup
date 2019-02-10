@@ -1,3 +1,4 @@
+
 package tcss450.uw.edu.phishapp;
 
 import android.content.Context;
@@ -9,6 +10,11 @@ import android.view.ViewGroup;
 
 import tcss450.uw.edu.phishapp.R;
 
+/**
+ *   @author Charles Bryan
+ *   @author Arjun Prajapati
+ *   @version 4/15/2018
+ */
 public class WaitFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
