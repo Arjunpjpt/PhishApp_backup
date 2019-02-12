@@ -1,9 +1,10 @@
-package tcss450.uw.edu.phishapp;
+package tcss450.uw.edu.arjun;
 
 import android.content.Context;
 
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,14 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import tcss450.uw.edu.phishapp.model.Credentials;
-import tcss450.uw.edu.phishapp.utils.SendPostAsyncTask;
+import me.pushy.sdk.Pushy;
+import tcss450.uw.edu.arjun.model.Credentials;
+import tcss450.uw.edu.arjun.utils.SendPostAsyncTask;
 
 
 /**
@@ -131,62 +132,62 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 //                            .onCancelled(this::handleErrorsInTask) .build().execute();
                 }
             }
-
-            /**
-             * Handle onPostExecute of the AsynceTask. The result from our webservice is
-             * a JSON formatted String. Parse it for success or failure.
-             * * @param result the JSON formatted String response from the web service
-             * */
-            private void handleLoginOnPost(String result) {
-                try {
-                    JSONObject resultsJSON = new JSONObject(result);
-                    boolean success =
-                            resultsJSON.getBoolean(
-                                    getString(R.string.keys_json_login_success));
-
-//Login was successful. Switch to the loadSuccessFragment.
-                        if (success) {
-                            //Login was successful. Switch to the loadSuccessFragment.
-                            mJwt = resultsJSON.getString(
-                                    getString(R.string.keys_json_login_jwt));
-                            saveCredentials(mCredentials);
-                            mListener.onLoginSuccess(mCredentials, mJwt);
-
-                            return;
-
-                    } else {
-                        //Login was unsuccessful. Don’t switch fragments and
-                        // inform the user
-                        ((TextView) getView().findViewById(R.id.edittext_email))
-                                .setError("Login Unsuccessful");
-                    }
-                    mListener.onWaitFragmentInteractionHide();
-                } catch (JSONException e) {
-                    //It appears that the web service did not return a JSON formatted
-                    //String or it did not have what we expected in it.
-                    Log.e("JSON_PARSE_ERROR",  result
-                            + System.lineSeparator()
-                            + e.getMessage());
-                    mListener.onWaitFragmentInteractionHide();
-                    ((TextView) getView().findViewById(R.id.edittext_email))
-                            .setError("Login Unsuccessful");
-                }
-            }
-            ////
-            /**
-             * Handle errors that may occur during the AsyncTask.
-             * @param result the error message provide from the AsyncTask */
-            private void handleErrorsInTask(String result) {
-
-                Log.e("ASYNC_TASK_ERROR", result);
-            }
-
-            /**
-             * Handle the setup of the UI before the HTTP call to the webservice.
-             */
-            private void handleLoginOnPre() {
-                mListener.onWaitFragmentInteractionShow();
-            }
+//
+//            /**
+//             * Handle onPostExecute of the AsynceTask. The result from our webservice is
+//             * a JSON formatted String. Parse it for success or failure.
+//             * * @param result the JSON formatted String response from the web service
+//             * */
+//            private void handleLoginOnPost(String result) {
+//                try {
+//                    JSONObject resultsJSON = new JSONObject(result);
+//                    boolean success =
+//                            resultsJSON.getBoolean(
+//                                    getString(R.string.keys_json_login_success));
+//
+////Login was successful. Switch to the loadSuccessFragment.
+//                        if (success) {
+//                            //Login was successful. Switch to the loadSuccessFragment.
+//                            mJwt = resultsJSON.getString(
+//                                    getString(R.string.keys_json_login_jwt));
+//                            saveCredentials(mCredentials);
+//                            mListener.onLoginSuccess(mCredentials, mJwt);
+//
+//                            return;
+//
+//                    } else {
+//                        //Login was unsuccessful. Don’t switch fragments and
+//                        // inform the user
+//                        ((TextView) getView().findViewById(R.id.edittext_email))
+//                                .setError("Login Unsuccessful");
+//                    }
+//                    mListener.onWaitFragmentInteractionHide();
+//                } catch (JSONException e) {
+//                    //It appears that the web service did not return a JSON formatted
+//                    //String or it did not have what we expected in it.
+//                    Log.e("JSON_PARSE_ERROR",  result
+//                            + System.lineSeparator()
+//                            + e.getMessage());
+//                    mListener.onWaitFragmentInteractionHide();
+//                    ((TextView) getView().findViewById(R.id.edittext_email))
+//                            .setError("Login Unsuccessful");
+//                }
+//            }
+//            ////
+//            /**
+//             * Handle errors that may occur during the AsyncTask.
+//             * @param result the error message provide from the AsyncTask */
+//            private void handleErrorsInTask(String result) {
+//
+//                Log.e("ASYNC_TASK_ERROR", result);
+//            }
+//
+//            /**
+//             * Handle the setup of the UI before the HTTP call to the webservice.
+//             */
+//            private void handleLoginOnPre() {
+//                mListener.onWaitFragmentInteractionShow();
+//            }
 
         });
 
@@ -301,9 +302,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                             getString(R.string.keys_json_login_success));
             if (success) {
 //Login was successful. Switch to the loadSuccessFragment.
-                mListener.onLoginSuccess(mCredentials,
-                        resultsJSON.getString(
-                                getString(R.string.keys_json_login_jwt)));
+                mJwt = resultsJSON.getString(
+                        getString(R.string.keys_json_login_jwt));
+                new RegisterForPushNotificationsAsync().execute();
+//                mListener.onLoginSuccess(mCredentials,
+//                        resultsJSON.getString(
+//                                getString(R.string.keys_json_login_jwt)));
                 return;
             } else {
                 //Login was unsuccessful. Don’t switch fragments and
@@ -339,7 +343,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public interface OnFragmentInteractionListener extends WaitFragment.OnFragmentInteractionListener{
         // TODO: Update argument type and name
         //void onFragmentInteraction(Uri uri);
-        void onLoginSuccess(tcss450.uw.edu.phishapp.model.Credentials credentials, String jwt);
+        void onLoginSuccess(tcss450.uw.edu.arjun.model.Credentials credentials, String jwt);
         void onRegisterClicked();
     }
 
@@ -367,6 +371,89 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 .onPostExecute(this::handleLoginOnPost)
                 .onCancelled(this::handleErrorsInTask)
                 .build().execute();
+    }
+
+    //
+    private void handlePushyTokenOnPost(String result) { try {
+        Log.d("JSON result",result);
+        JSONObject resultsJSON = new JSONObject(result);
+
+        boolean success = resultsJSON.getBoolean("success");
+
+        if (success) {
+            saveCredentials(mCredentials);
+            mListener.onLoginSuccess(mCredentials, mJwt);
+            return;
+        } else {
+//Saving the token wrong. Don’t switch fragments and inform the user
+        ((TextView) getView().findViewById(R.id.edittext_email))
+            .setError("Login Unsuccessful");
+        }
+        mListener.onWaitFragmentInteractionHide(); } catch (JSONException e) {
+        //It appears that the web service didn’t return a JSON formatted String
+//or it didn’t have what we expected in it.
+        Log.e("JSON_PARSE_ERROR", result
+            + System.lineSeparator()
+                + e.getMessage());
+        mListener.onWaitFragmentInteractionHide();
+        ((TextView) getView().findViewById(R.id.edittext_email)) .setError("Login Unsuccessful");
+        }
+    }
+    //
+    private class RegisterForPushNotificationsAsync extends AsyncTask<Void, String, String>
+    {
+        protected String doInBackground(Void... params) {
+            String deviceToken = "";
+            try {
+                // Assign a unique token to this device
+                deviceToken = Pushy.register(getActivity().getApplicationContext());
+                //subscribe to a topic (this is a Blocking call)
+                Pushy.subscribe("all", getActivity().getApplicationContext());
+            }
+            catch (Exception exc) {
+                cancel(true);
+                // Return exc to onCancelled
+                return exc.getMessage();
+            }
+// Success
+            return deviceToken;
+        }
+        @Override
+        protected void onCancelled(String errorMsg) {
+            super.onCancelled(errorMsg);
+            Log.d("PhishApp", "Error getting Pushy Token: " + errorMsg);
+        }
+        @Override
+        protected void onPostExecute(String deviceToken) {
+// Log it for debugging purposes
+            System.out.println("error here ---0");
+            Log.d("PhishApp", "Pushy device token: " + deviceToken);
+
+            //build the web service URL
+            Uri uri = new Uri.Builder()
+                    .scheme("https")
+                    .appendPath(getString(R.string.ep_base_url))
+                    .appendPath(getString(R.string.ep_pushy))
+                    .appendPath(getString(R.string.ep_token))
+                    .build();
+//build the JSONObject
+            JSONObject msg = mCredentials.asJSONObject();
+            try {
+                msg.put("token", deviceToken);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+//instantiate and execute the AsyncTask.
+            new SendPostAsyncTask.Builder(uri.toString(), msg)
+                    .onPostExecute(LoginFragment.this::handlePushyTokenOnPost)
+                    .onCancelled(LoginFragment.this::handleErrorsInTask)
+                    .addHeaderField("authorization", mJwt)
+                    .build().execute();
+
+
+//            saveCredentials(mCredentials);
+//            mListener.onLoginSuccess(mCredentials, mJwt);
+        }
     }
 
 

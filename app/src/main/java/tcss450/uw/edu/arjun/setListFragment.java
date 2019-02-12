@@ -1,4 +1,4 @@
-package tcss450.uw.edu.phishapp;
+package tcss450.uw.edu.arjun;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tcss450.uw.edu.phishapp.blog.BlogPost;
-import tcss450.uw.edu.phishapp.setList.ListPost;
+import tcss450.uw.edu.arjun.setList.ListPost;
 
 /**
  * A fragment representing a list of Items.

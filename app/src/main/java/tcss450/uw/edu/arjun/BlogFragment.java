@@ -1,4 +1,4 @@
-package tcss450.uw.edu.phishapp;
+package tcss450.uw.edu.arjun;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import tcss450.uw.edu.phishapp.blog.BlogGenerator;
-import tcss450.uw.edu.phishapp.blog.BlogPost;
+import tcss450.uw.edu.arjun.blog.BlogGenerator;
+import tcss450.uw.edu.arjun.blog.BlogPost;
 
 import java.util.ArrayList;
 import java.util.Arrays;

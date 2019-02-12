@@ -1,17 +1,14 @@
-package tcss450.uw.edu.phishapp;
+package tcss450.uw.edu.arjun;
 
 import android.content.Intent;
-import android.net.Credentials;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
 
 import java.io.Serializable;
 
-import tcss450.uw.edu.phishapp.blog.BlogPost;
+import me.pushy.sdk.Pushy;
 
 
 public class MainActivity extends AppCompatActivity implements LoginFragment.OnFragmentInteractionListener,
@@ -21,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Pushy.listen(this);
         setContentView(R.layout.activity_main);
 
         if(savedInstanceState == null){
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnF
     }
 
 @Override
-public void onRegisterSuccess(tcss450.uw.edu.phishapp.model.Credentials credential){
+public void onRegisterSuccess(tcss450.uw.edu.arjun.model.Credentials credential){
     Log.d("MainActivity", "Register Success");
     LoginFragment loginFragment;
     loginFragment = new LoginFragment();
@@ -49,7 +47,7 @@ public void onRegisterSuccess(tcss450.uw.edu.phishapp.model.Credentials credenti
     transaction.commit();
 }
     @Override
-    public void onLoginSuccess(tcss450.uw.edu.phishapp.model.Credentials credentials, String jwt) {
+    public void onLoginSuccess(tcss450.uw.edu.arjun.model.Credentials credentials, String jwt) {
         Log.d("MainActivity", "Login Button");
 //        SuccessFragment successfragment;
 //        successfragment = new SuccessFragment();

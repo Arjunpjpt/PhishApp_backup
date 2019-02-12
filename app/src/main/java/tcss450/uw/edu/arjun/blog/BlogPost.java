@@ -1,4 +1,4 @@
-package tcss450.uw.edu.phishapp.blog;
+package tcss450.uw.edu.arjun.blog;
 
 import java.io.Serializable;
 

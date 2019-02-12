@@ -1,4 +1,4 @@
-package tcss450.uw.edu.phishapp;
+package tcss450.uw.edu.arjun;
 
 import android.content.Context;
 
@@ -16,8 +16,8 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import tcss450.uw.edu.phishapp.model.Credentials;
-import tcss450.uw.edu.phishapp.utils.SendPostAsyncTask;
+import tcss450.uw.edu.arjun.model.Credentials;
+import tcss450.uw.edu.arjun.utils.SendPostAsyncTask;
 
 
 /**
@@ -218,7 +218,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onRegisterSuccess(tcss450.uw.edu.phishapp.model.Credentials credential);
+        void onRegisterSuccess(tcss450.uw.edu.arjun.model.Credentials credential);
 
         void onWaitFragmentInteractionShow();
 

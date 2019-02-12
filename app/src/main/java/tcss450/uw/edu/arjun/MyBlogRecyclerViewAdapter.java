@@ -1,4 +1,4 @@
-package tcss450.uw.edu.phishapp;
+package tcss450.uw.edu.arjun;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import tcss450.uw.edu.phishapp.BlogFragment.OnListFragmentInteractionListener;
-import tcss450.uw.edu.phishapp.blog.BlogPost;
+import tcss450.uw.edu.arjun.BlogFragment.OnListFragmentInteractionListener;
+import tcss450.uw.edu.arjun.blog.BlogPost;
 
 import java.util.List;
 
